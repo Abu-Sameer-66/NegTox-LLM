@@ -1,0 +1,26 @@
+model:
+  name: "allenai/OLMo-7B-hf"
+  quantization: "4bit"
+  quant_type: "nf4"
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules: ["q_proj", "v_proj", "k_proj", "o_proj"]
+
+training:
+  epochs: 5
+  batch_size: 4
+  gradient_accumulation: 4
+  learning_rate: 2.0e-4
+  fp16: true
+  logging_steps: 50
+  save_strategy: "epoch"
+
+data:
+  diseases: ["Leishmaniasis", "Chagas", "Malaria", "Tuberculosis"]
+  descriptors: ["MW", "LogP", "TPSA", "HBD", "HBA"]
+  train_split: 0.70
+  val_split: 0.15
+  test_split: 0.15
